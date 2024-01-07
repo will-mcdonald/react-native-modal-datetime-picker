@@ -261,6 +261,14 @@ export interface DateTimePickerProps {
    */
   onChange?(newDate: Date): void;
 
+  /** 
+  * Allows clearing, same as cancel.
+  */
+   onClear(): void;
+  
+
+
+  
   /**
    * Handler called when the user presses the confirm button
    * Passes the current selected date
