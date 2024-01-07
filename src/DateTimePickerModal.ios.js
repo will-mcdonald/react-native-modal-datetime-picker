@@ -44,6 +44,7 @@ export class DateTimePickerModal extends React.PureComponent {
     pickerComponentStyleIOS: PropTypes.any,
     onCancel: PropTypes.func.isRequired,
     onConfirm: PropTypes.func.isRequired,
+    onClear: PropTypes.func,
     onChange: PropTypes.func,
     onHide: PropTypes.func,
     maximumDate: PropTypes.instanceOf(Date),
@@ -52,6 +53,7 @@ export class DateTimePickerModal extends React.PureComponent {
 
   static defaultProps = {
     cancelTextIOS: "Cancel",
+    clearTextIOS:'Reset to Rostered',
     confirmTextIOS: "Confirm",
     modalPropsIOS: {},
     date: new Date(),
@@ -86,6 +88,11 @@ export class DateTimePickerModal extends React.PureComponent {
     this.didPressConfirm = true;
     this.props.onConfirm(this.state.currentDate);
   };
+  handleClear = () => {
+    this.didPressConfirm = false;
+    this.props.onClear()
+    this.props.onCancel();
+  };
 
   handleHide = () => {
     const { onHide } = this.props;
@@ -105,6 +112,7 @@ export class DateTimePickerModal extends React.PureComponent {
   render() {
     const {
       cancelButtonTestID,
+      clearButtonTestID, 
       confirmButtonTestID,
       cancelTextIOS,
       confirmTextIOS,
@@ -123,8 +131,10 @@ export class DateTimePickerModal extends React.PureComponent {
       pickerComponentStyleIOS,
       onCancel,
       onConfirm,
+      onClear,
       onChange,
       onHide,
+      clearTextIOS,
       backdropStyleIOS,
       buttonTextColorIOS,
       ...otherProps
@@ -162,10 +172,18 @@ export class DateTimePickerModal extends React.PureComponent {
             pickerContainerStyleIOS,
           ]}
         >
+          {otherProps.mode === 'time' && <CancelButtonComponent
+            cancelButtonTestID={clearButtonTestID}
+            isDarkModeEnabled={_isDarkModeEnabled}
+            onPress={this.handleClear}
+            label={clearTextIOS}
+            buttonTextColorIOS={buttonTextColorIOS}
+          />}
           {HeaderComponent && <HeaderComponent />}
           {!HeaderComponent && display === "inline" && (
             <View style={pickerStyles.headerFiller} />
           )}
+      
           <View
             style={[
               display === "inline"
