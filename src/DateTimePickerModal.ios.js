@@ -172,8 +172,8 @@ export class DateTimePickerModal extends React.PureComponent {
             pickerContainerStyleIOS,
           ]}
         >
-          {otherProps.mode === 'time' && <CancelButtonComponent
-            cancelButtonTestID={clearButtonTestID}
+   {otherProps.mode === 'time' && <ConfirmButtonComponent
+            confirmButtonTestID={clearButtonTestID}
             isDarkModeEnabled={_isDarkModeEnabled}
             onPress={this.handleClear}
             label={clearTextIOS}
