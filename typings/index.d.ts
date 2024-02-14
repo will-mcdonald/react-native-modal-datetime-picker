@@ -264,7 +264,7 @@ export interface DateTimePickerProps {
   /** 
   * Allows clearing, same as cancel.
   */
-   onClear(): void;
+   onClear?(): void;
   
 
 
